@@ -39,23 +39,38 @@
 </section>
 
 <script>
-    document.getElementById('new-article-form').addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevents the default form submission action
+    document.addEventListener('DOMContentLoaded', loadArticles); // Load articles when the page is ready
 
-        // Select data inputs
+    document.getElementById('new-article-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+
         var title = document.getElementById('title').value;
         var content = document.getElementById('content').value;
 
-        // Create article element
-        var article = document.createElement('article');
-        article.innerHTML = '<h2 class="red-heading">' + title + '</h2><p>' + content + '</p>';
+        addArticle(title, content);
+        saveArticleToStorage(title, content);
 
-        // Write article to the HTML
-        document.getElementById('blog-articles').appendChild(article);
-
-        // Clear the form fields
         document.getElementById('title').value = '';
         document.getElementById('content').value = '';
     });
+
+    function addArticle(title, content) {
+        var article = document.createElement('article');
+        article.innerHTML = '<h2 class="red-heading">' + title + '</h2><p>' + content + '</p>';
+        document.getElementById('blog-articles').appendChild(article);
+    }
+
+    function saveArticleToStorage(title, content) {
+        var articles = JSON.parse(localStorage.getItem('articles')) || [];
+        articles.push({ title: title, content: content });
+        localStorage.setItem('articles', JSON.stringify(articles));
+    }
+
+    function loadArticles() {
+        var articles = JSON.parse(localStorage.getItem('articles')) || [];
+        articles.forEach(function(article) {
+            addArticle(article.title, article.content);
+        });
+    }
 </script>
 
