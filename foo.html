@@ -4,20 +4,36 @@
     }
 </style>
 
-<h1 class="red-heading">Foo Page</h1>
+<h1 class="red-heading">My Blog</h1>
 
-<article>
-    <h2 class="red-heading">Bar Section</h2>
-    <p>Foo, bar, and baz are random nonsense words that developers frequently use to create code examples.</p>
-</article>
+<section id="blog-articles">
+    <article>
+        <h2 class="red-heading">Explaining Foo, bar, baz, and lorem ipsum</h2>
+        <p>Foo, bar, and baz are random nonsense words that developers frequently use to create code examples.</p>
 
 
-<article>
-    <h2 class="red-heading">Baz Section</h2>
-    <p>Another common pattern, or idiom, is the concept of "Lorem Ipsum text."
+        <p>Another common pattern, or idiom, is the concept of "Lorem Ipsum text."
 
-        Read more about Lorem Ipsum <a href="https://en.wikipedia.org/wiki/Lorem_ipsum" target="_blank">
-            here on Wikipedia!
-        </a>.
-    </p>
-</article>
+            Read more about Lorem Ipsum <a href="https://en.wikipedia.org/wiki/Lorem_ipsum" target="_blank">
+                here on Wikipedia!
+            </a>.
+        </p>
+    </article>
+</section>
+
+
+<section id="create-new-blog-article">
+    <form id="new-article-form">
+        <div class="form-group">
+            <label for="title">Article Title:</label>
+            <input type="text" id="title" name="title" required>
+        </div>
+        <div class="form-group">
+            <label for="content">Content:</label>
+            <textarea id="content" name="content" required></textarea>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Submit Article">
+        </div>
+    </form>
+</section>
