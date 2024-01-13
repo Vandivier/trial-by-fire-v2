@@ -37,3 +37,25 @@
         </div>
     </form>
 </section>
+
+<script>
+    document.getElementById('new-article-form').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevents the default form submission action
+
+        // Select data inputs
+        var title = document.getElementById('title').value;
+        var content = document.getElementById('content').value;
+
+        // Create article element
+        var article = document.createElement('article');
+        article.innerHTML = '<h2 class="red-heading">' + title + '</h2><p>' + content + '</p>';
+
+        // Write article to the HTML
+        document.getElementById('blog-articles').appendChild(article);
+
+        // Clear the form fields
+        document.getElementById('title').value = '';
+        document.getElementById('content').value = '';
+    });
+</script>
+
