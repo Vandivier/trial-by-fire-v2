@@ -1,77 +1,11 @@
-<style>
-    .red-heading {
-        color: rgb(235, 44, 44);
-    }
-</style>
-
-<h1 class="red-heading">My Blog</h1>
-
-<section id="blog-articles">
-    <article>
-        <h2 class="red-heading">Explaining Foo, bar, baz, and lorem ipsum</h2>
-        <p>Foo, bar, and baz are random nonsense words that developers frequently use to create code examples.</p>
+<h1>
+    hello world - i'm the main heading
+</h1>
 
 
-        <p>Another common pattern, or idiom, is the concept of "Lorem Ipsum text."
+<p>p is for paragraph - I'm semantic!</p>
 
-            Read more about Lorem Ipsum <a href="https://en.wikipedia.org/wiki/Lorem_ipsum" target="_blank">
-                here on Wikipedia!
-            </a>.
-        </p>
-    </article>
-</section>
+<h2>I'm a subheading (h2)</h2>
 
-
-<section id="create-new-blog-article">
-    <form id="new-article-form">
-        <div class="form-group">
-            <label for="title">Article Title:</label>
-            <input type="text" id="title" name="title" required>
-        </div>
-        <div class="form-group">
-            <label for="content">Content:</label>
-            <textarea id="content" name="content" required></textarea>
-        </div>
-        <div class="form-group">
-            <input type="submit" value="Submit Article">
-        </div>
-    </form>
-</section>
-
-<script>
-    console.log('hello')
-    document.addEventListener('DOMContentLoaded', loadArticles); // Load articles when the page is ready
-
-    document.getElementById('new-article-form').addEventListener('submit', function(event) {
-        event.preventDefault();
-
-        var title = document.getElementById('title').value;
-        var content = document.getElementById('content').value;
-
-        addArticle(title, content);
-        saveArticleToStorage(title, content);
-
-        document.getElementById('title').value = '';
-        document.getElementById('content').value = '';
-    });
-
-    function addArticle(title, content) {
-        var article = document.createElement('article');
-        article.innerHTML = '<h2 class="red-heading">' + title + '</h2><p>' + content + '</p>';
-        document.getElementById('blog-articles').appendChild(article);
-    }
-
-    function saveArticleToStorage(title, content) {
-        var articles = JSON.parse(localStorage.getItem('articles')) || [];
-        articles.push({ title: title, content: content });
-        localStorage.setItem('articles', JSON.stringify(articles));
-    }
-
-    function loadArticles() {
-        var articles = JSON.parse(localStorage.getItem('articles')) || [];
-        articles.forEach(function(article) {
-            addArticle(article.title, article.content);
-        });
-    }
-</script>
+<div>I'm a gross non-semantic tag</div>
 
