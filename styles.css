@@ -1,0 +1,15 @@
+article {
+    /* Card appearance */
+    background-color: #fff; /* Card background color */
+    border: 1px solid #ddd; /* Border around the card */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow to create a lifted card effect */
+    border-radius: 8px; /* Rounded corners */
+    
+    /* Spacing */
+    padding: 20px; /* Space inside the card */
+    margin: 20px 0; /* Space outside the card */
+    
+    /* Layout */
+    max-width: 300px; /* Maximum card width */
+  }
+  
