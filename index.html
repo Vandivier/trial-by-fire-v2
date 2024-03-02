@@ -9,8 +9,9 @@
 
   <h2>I'm a subheading (h2)</h2>
 
-  <div>I'm a gross non-semantic tag</div>
+  <div style="margin: 1rem 0">I'm a gross non-semantic tag</div>
 
+  <button onclick="localStorage.clear(); location.reload();">Clear Local Storage</button>
   <section id="articles"></section>
 
   <script>
@@ -23,30 +24,56 @@
           "Add water and bananas and mix it up with eggs",
           "Bake at 450 for 20 minutes",
         ],
+        id: "banana-bread"
       },
       {
         title: "How to Make Agua Fresca",
         titleColor: "darkblue",
         steps: ["Agua", "Fresca"],
+        id: "agua-fresca"
+      },
+      {
+        title: "How to Make a Third Article",
+        titleColor: "darkblue",
+        steps: ["Write words"],
+        id: "third-article"
       },
     ];
 
     function deleteArticle(id) {
       document.getElementById(id).remove();
+
+      const articlesFromLocalStorage = JSON.parse(
+        localStorage.getItem("articles")
+      );
+
+      const updatedArticles = (
+        articlesFromLocalStorage || articlesNotInLocalStorage
+      ).filter((article) => article.id !== id);
+
+      localStorage.setItem("articles", JSON.stringify(updatedArticles));
     }
 
     function renderArticles() {
       const articlesFromLocalStorage = JSON.parse(
         localStorage.getItem("articles")
       );
-      const articleSection = document.querySelector('section[id="articles"]');
-      const articlesToUse = articlesFromLocalStorage
-        ? articlesFromLocalStorage
-        : articlesNotInLocalStorage;
 
+      if (!articlesFromLocalStorage) {
+        localStorage.setItem(
+          "articles",
+          JSON.stringify(articlesNotInLocalStorage)
+        );
+      }
+
+      const articlesToUse = JSON.parse(
+        localStorage.getItem("articles")
+      );
+
+      const articleSection = document.querySelector('section[id="articles"]');
       for (article of articlesToUse) {
         const newArticle = document.createElement("article");
-        newArticle.id = article;
+        newArticle.id = article.id;
         newArticle.innerHTML = `<h3 style="color: ${article.titleColor}">${article.title}</h3>`;
 
         const stepsList = document.createElement("ol");
@@ -59,9 +86,7 @@
 
         const deleteButton = document.createElement("button");
         deleteButton.innerHTML = "Delete";
-        deleteButton.onclick = function () {
-          deleteArticle(article);
-        };
+        deleteButton.onclick = deleteArticle.bind(null, article.id);
         newArticle.appendChild(deleteButton);
         articleSection.appendChild(newArticle);
       }
