@@ -11,30 +11,62 @@
 
   <div>I'm a gross non-semantic tag</div>
 
-  <section name="articles">
-    <article style="background-color: lightblue" id="0">
-      <h2 style="color: darkgoldenrod">How to Make Banana Bread</h2>
-      <button onclick="deleteArticle('0')">Delete this Article</button>
-      <ol>
-        <li>Step 1: Flour</li>
-        <li>Step 2: Add water and bananas and mix it up with eggs</li>
-        <li>Step 3: Bake at 450 for 20 minutes</li>
-      </ol>
-    </article>
-
-    <article style="background-color: green" id="1">
-      <h2 style="color: darkblue">How to Make Agua Fresca</h2>
-      <button onclick="deleteArticle('1')">Delete this Article</button>
-      <ol>
-        <li>Step 1: Agua</li>
-        <li>Step 2: Fresca</li>
-      </ol>
-    </article>
-  </section>
+  <section id="articles"></section>
 
   <script>
+    const articlesNotInLocalStorage = [
+      {
+        title: "How to Make Banana Bread",
+        titleColor: "darkgoldenrod",
+        steps: [
+          "Flour",
+          "Add water and bananas and mix it up with eggs",
+          "Bake at 450 for 20 minutes",
+        ],
+      },
+      {
+        title: "How to Make Agua Fresca",
+        titleColor: "darkblue",
+        steps: ["Agua", "Fresca"],
+      },
+    ];
+
     function deleteArticle(id) {
       document.getElementById(id).remove();
     }
+
+    function renderArticles() {
+      const articlesFromLocalStorage = JSON.parse(
+        localStorage.getItem("articles")
+      );
+      const articleSection = document.querySelector('section[id="articles"]');
+      const articlesToUse = articlesFromLocalStorage
+        ? articlesFromLocalStorage
+        : articlesNotInLocalStorage;
+
+      for (article of articlesToUse) {
+        const newArticle = document.createElement("article");
+        newArticle.id = article;
+        newArticle.innerHTML = `<h3 style="color: ${article.titleColor}">${article.title}</h3>`;
+
+        const stepsList = document.createElement("ol");
+        for (step of article.steps) {
+          const stepItem = document.createElement("li");
+          stepItem.innerHTML = step;
+          stepsList.appendChild(stepItem);
+        }
+        newArticle.appendChild(stepsList);
+
+        const deleteButton = document.createElement("button");
+        deleteButton.innerHTML = "Delete";
+        deleteButton.onclick = function () {
+          deleteArticle(article);
+        };
+        newArticle.appendChild(deleteButton);
+        articleSection.appendChild(newArticle);
+      }
+    }
+
+    renderArticles();
   </script>
 </body>
